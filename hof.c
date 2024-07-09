@@ -70,6 +70,14 @@ bool add_player(struct player list[], int* size, const struct player player) {
     for (int i = 0; i < *size; i++) {
         if (player.score >= list[i].score) {
             list[(*size)-1] = player;
+            (*size)++;
+            if (save(list, *size)) {
+                printf("Your best score was added to HOF list!\n");
+                return 1;
+            }
+        } else if ((*size) < 10) {
+            list[(*size)] = player;
+            (*size)++;
             if (save(list, *size)) {
                 printf("Your best score was added to HOF list!\n");
                 return 1;

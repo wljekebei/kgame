@@ -56,8 +56,13 @@ bool save(const struct player list[], const int size) {
                 max = slist[j];
             }
         }
-        fprintf(f, "%s %d\n", list[maxIndex].name, list[maxIndex].score);
-        slist[maxIndex] -= slist[maxIndex];
+        if (i != size - 1) {
+            fprintf(f, "%s %d\n", list[maxIndex].name, list[maxIndex].score);
+            slist[maxIndex] -= slist[maxIndex];
+        } else {
+            fprintf(f, "%s %d", list[maxIndex].name, list[maxIndex].score);
+            slist[maxIndex] -= slist[maxIndex];
+        }
     }
     fclose(f);
     return 1;
@@ -77,9 +82,11 @@ bool add_player(struct player list[], int* size, const struct player player) {
             }
         } else if ((*size) < 10) {
             list[(*size)] = player;
+            printf("before: %d\n", *size);
             (*size)++;
+            printf("after: %d\n", *size);
             if (save(list, *size)) {
-                printf("Your best score was added to HOF list!\n");
+                printf("Your score was added to HOF list!\n");
                 return 1;
             }
         }
